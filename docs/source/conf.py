@@ -361,7 +361,7 @@ import torch
 from pytorch_lightning.utilities import (
     NATIVE_AMP_AVAILABLE,
     APEX_AVAILABLE,
-    XLA_AVAILABLE,
+    XLADeviceUtils,
 )
 TORCHVISION_AVAILABLE = importlib.util.find_spec("torchvision") is not None
 

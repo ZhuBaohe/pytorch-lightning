@@ -15,7 +15,7 @@ from pytorch_lightning import accelerators
 import os
 import torch
 
-from pytorch_lightning.utilities import device_parser, XLA_AVAILABLE
+from pytorch_lightning.utilities import device_parser, XLADeviceUtils
 from pytorch_lightning.utilities import rank_zero_only
 from pytorch_lightning.utilities.distributed import rank_zero_warn, rank_zero_info
 from pytorch_lightning.utilities.exceptions import MisconfigurationException
@@ -350,7 +350,7 @@ class AcceleratorConnector:
 
         rank_zero_info(f'GPU available: {torch.cuda.is_available()}, used: {self.trainer.on_gpu}')
         num_cores = self.trainer.tpu_cores if self.trainer.tpu_cores is not None else 0
-        rank_zero_info(f'TPU available: {XLA_AVAILABLE}, using: {num_cores} TPU cores')
+        rank_zero_info(f'TPU available: {XLADeviceUtils.tpu_device_exists()}, using: {num_cores} TPU cores')
 
         if torch.cuda.is_available() and not self.trainer.on_gpu:
             rank_zero_warn('GPU available but not used. Set the --gpus flag when calling the script.')
